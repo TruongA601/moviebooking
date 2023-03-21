@@ -21,14 +21,14 @@
                 <div class="page-content">
                     <!--breadcrumb-->
                     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-                        <div class="breadcrumb-title pe-3">Account</div>
+                        <div class="breadcrumb-title pe-3">Movie</div>
                         <div class="ps-3">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb mb-0 p-0">
                                     <li class="breadcrumb-item"><a href="javascript:;"><i
                                                 class="bx bx-home-alt"></i></a>
                                     </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Account table</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Movies table</li>
                                 </ol>
                             </nav>
                         </div>
@@ -70,22 +70,39 @@
                                             <form class="row g-3 needs-validation"
                                                 action="{{ URL::to('mupdate/' . $item->films_id) }}" method="POST">
                                                 @csrf
-                                                <div class="col-md-4; card">
-                                                    <img src=" {{ URL::to('uploads/movies/' . $item->films_poster) }}"
-                                                        alt="image" width="100">
-                                                        <label for="">{{$item->films_poster}}</label>
-                                                  <input type="file" class="form-control" name="" id="">
-                                                </div> 
-                                                
-                                                <hr>
-                                                <div class="col-md-4">
-                                                    <label for="validationCustom01" class="form-label">ID</label>
-                                                    <input disabled type="text" class="form-control" id="films_name"
-                                                        name="films_name" value="{{ $item->films_name }}">
+
+
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <img src=" {{ URL::to('uploads/movies/' . $item->films_poster) }}"
+                                                            
+                                                            class="center" alt="image" width="120"><br>
+                                                        <label for="films_poster">{{$item->films_poster}}</label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <input id="fancy-file-upload" type="file" name="films_poster"
+                                                            accept=".jpg, .png, image/jpeg, image/png" multiple>
+                                                    </div>
+
                                                 </div>
 
 
-                                                <div class="col-md-4">
+
+
+                                                <hr>
+
+                                                <div class="col-md-3">
+                                                    <label for="validationCustom01" class="form-label">Movie id</label>
+                                                    <input disabled type="text" class="form-control" id="films_id"
+                                                        name="films_id" value="{{ $item->films_id }}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="validationCustom01" class="form-label">Movie
+                                                        name</label>
+                                                    <input type="text" class="form-control" id="films_name"
+                                                        name="films_name" value="{{ $item->films_name }}">
+                                                </div>
+                                                <div class="col-md-8">
                                                     <label for="validationCustomUsername"
                                                         class="form-label">genre</label>
 
@@ -193,6 +210,19 @@
     <!-- Bootstrap JS -->
 
     @include('admin.footer')
+    <script>
+        $('#fancy-file-upload').FancyFileUpload({
+            params: {
+                action: 'fileuploader'
+            },
+            maxfilesize: 1000000
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#image-uploadify').imageuploadify();
+        })
+    </script>
 </body>
 
 </html>
