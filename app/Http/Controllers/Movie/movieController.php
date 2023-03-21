@@ -25,6 +25,7 @@ class movieController extends Controller
     }
     public function viewadd(Request $request)
     {
+        return view('admin.movies.add');
     }
     public function update($films_id, Request $request)
     {

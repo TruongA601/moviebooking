@@ -13,5 +13,5 @@ Route::get('update/{UserID}', [AccountController::class, 'viewupdate'])->name('v
 Route::post('update/{UserID}', [AccountController::class, 'update'])->name('update');
 Route::get('movies', [movieController::class, 'movies'])->name('movies');
 Route::get('movies/{films_id}', [movieController::class, 'delete'])->name('mdelete');
-Route::get('update/{films_id}', [movieController::class, 'viewupdate'])->name('mviewupdate');
-Route::post('update/{films_id}', [movieController::class, 'update'])->name('mupdate');
+Route::get('mupdate/{films_id}', [movieController::class, 'viewupdate'])->name('mviewupdate');
+Route::post('mupdate/{films_id}', [movieController::class, 'update'])->name('mupdate');

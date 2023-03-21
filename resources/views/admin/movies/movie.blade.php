@@ -81,7 +81,7 @@
                                                 <td>{{ $item->films_length }}</td>
                                                 <td>
                                                     <button class="btn btn-sm btn-default">
-                                                        <a href="{{ url('update/' . $item->films_id) }}"><i
+                                                        <a href="{{ url('mupdate/' . $item->films_id) }}"><i
                                                                 class="fa fa-edit"></i></a>
                                                     </button>
                                                     <button class="btn btn-sm btn-default">
