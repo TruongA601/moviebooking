@@ -70,27 +70,18 @@
                                             <form class="row g-3 needs-validation"
                                                 action="{{ URL::to('mupdate/' . $item->films_id) }}" method="POST">
                                                 @csrf
-
-
                                                 <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <img src=" {{ URL::to('uploads/movies/' . $item->films_poster) }}"
-                                                            
-                                                            class="center" alt="image" width="120"><br>
-                                                        <label for="films_poster">{{$item->films_poster}}</label>
+                                                            class="center" alt="image" width="130"><br>
+                                                        <label for="films_poster">{{ $item->films_poster }}</label>
                                                     </div>
-                                                    <div class="col-md-9">
-                                                        <input id="fancy-file-upload" type="file" name="films_poster"
-                                                            accept=".jpg, .png, image/jpeg, image/png" multiple>
+                                                    <div class="col-md-8">
+                                                        <input  type="file" name="films_poster"
+                                                            accept=".jpg, .png, image/jpeg, image/png" >
                                                     </div>
-
                                                 </div>
-
-
-
-
                                                 <hr>
-
                                                 <div class="col-md-3">
                                                     <label for="validationCustom01" class="form-label">Movie id</label>
                                                     <input disabled type="text" class="form-control" id="films_id"
@@ -107,26 +98,31 @@
                                                         class="form-label">genre</label>
 
                                                     <input type="text" class="form-control" id="films_genre"
-                                                        name="" value="{{ $item->films_genre }}">
+                                                        name="films_genre" value="{{ $item->films_genre }}">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="validationCustomUsername"
                                                         class="form-label">Length</label>
 
                                                     <input type="text" class="form-control" id="films_length"
-                                                        name="" value="{{ $item->films_length }}">
+                                                        name="films_length" value="{{ $item->films_length }}">
                                                 </div>
 
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <label for="validationCustom03" class="form-label">Date
                                                         release</label>
                                                     <input type="text" class="form-control" id="films_release"
-                                                        name="" value="{{ $item->films_release }}">
+                                                        name="films_release" value="{{ $item->films_release }}">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <label for="validationCustom03" class="form-label">Trailer link</label>
+                                                    <input type="text" class="form-control" id="films_trailer"
+                                                        name="films_trailer" value="{{ $item->films_trailer }}">
                                                 </div>
                                                 <div class="col-md-12">
                                                     <label for="validationCustom03"
                                                         class="form-label">Description</label>
-                                                    <textarea type="text" class="form-control" id="films_description" name="">{{ $item->films_description }}</textarea>
+                                                    <textarea type="text" class="form-control" id="films_description" name="films_description">{{ $item->films_description }}</textarea>
                                                 </div>
                                                 <div class="col-12">
                                                     <button class="btn btn-primary" type="submit">Update</button>
@@ -139,9 +135,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
                     <!--end row-->
@@ -210,19 +203,7 @@
     <!-- Bootstrap JS -->
 
     @include('admin.footer')
-    <script>
-        $('#fancy-file-upload').FancyFileUpload({
-            params: {
-                action: 'fileuploader'
-            },
-            maxfilesize: 1000000
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('#image-uploadify').imageuploadify();
-        })
-    </script>
+
 </body>
 
 </html>

@@ -15,3 +15,5 @@ Route::get('movies', [movieController::class, 'movies'])->name('movies');
 Route::get('movies/{films_id}', [movieController::class, 'delete'])->name('mdelete');
 Route::get('mupdate/{films_id}', [movieController::class, 'viewupdate'])->name('mviewupdate');
 Route::post('mupdate/{films_id}', [movieController::class, 'update'])->name('mupdate');
+Route::get('madd', [movieController::class, 'viewadd'])->name('mviewadd');
+Route::post('madd', [movieController::class, 'add'])->name('madd');

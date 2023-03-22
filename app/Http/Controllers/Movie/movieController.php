@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Movie;
 
 use App\Http\Controllers\Controller;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -27,6 +28,7 @@ class movieController extends Controller
     {
         return view('admin.movies.add');
     }
+ 
     public function update($films_id, Request $request)
     {
         $data = $request->all();
@@ -35,7 +37,7 @@ class movieController extends Controller
             ->update([
                 'films_name' => $data['films_name'],
                 // 'films_poster' => $data['films_poster'],
-                'films_lenght' => $data['films_lenght'],
+                'films_length' => $data['films_length'],
                 'films_trailer' => $data['films_trailer'],
                 'films_description' => $data['films_description'],
                 'films_release' => $data['films_release'],
@@ -46,6 +48,29 @@ class movieController extends Controller
 
         Session()->flash('success', 'Update successfull');
         return view('admin.movies.update', compact('films'));
+    }
+
+    public function add(Request $request){
+        $request->validate([
+            'films_poster' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+        ]);
+        $films = new Movie();
+        $films->films_name = $request->films_name;
+
+        $name = $request->file('films_poster')->getClientOriginalName();
+        $request->file('films_poster')->storeAs('public/uploads/movies/', $name);
+        $request->films_poster->move(public_path('uploads/movies'), $name);
+
+        $films->films_poster = $name;
+        $films->films_lenght = $request->films_lenght;
+        $films->films_trailer = $request->films_trailer;
+        $films->films_description = $request->films_description;
+        $films->films_release = $request->films_release;
+        $films->films_genre = $request->films_genre;
+
+        Session()->flash('add_success', 'Thêm thành công');
+        $films->save();
+        return redirect()->route('movies');
     }
     public function delete($films_id)
     {

@@ -53,7 +53,14 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title">
-                                <h4 class="mb-0">Movies</h4>
+                                <h4 class="mb-0 inline-blk" style="display:inline-block">Movies</h4>
+                                
+                                <div class="" style="float: right;display:inline-block">
+                                    <a href="{{ route('madd') }}"
+                                        title="Thêm"class="btn btn-sm btn-success px-4"><i
+                                            class='bx bx-plus me-1'></i></a>
+                                </div>
+                               
                             </div>
                             <hr />
                             <div class="table-responsive">
@@ -167,6 +174,7 @@
             </div>
         </div>
     </div>
+
     <!--end switcher-->
     <!-- JavaScript -->
     <!-- Bootstrap JS -->
