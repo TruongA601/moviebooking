@@ -50,32 +50,35 @@ class movieController extends Controller
         return view('admin.movies.update', compact('films'));
     }
 
-    public function add(Request $request){
+    public function add(Request $request)
+    {
+
         $request->validate([
-            'films_poster' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'films_poster' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        $imageName = time().'.'.$request->films_poster->extension();  
+        $imageName = $request->file('films_poster')->getClientOriginalName();
+        $request->films_poster->move(public_path('uploads/movies'), $imageName);
+
+        
         $films = new Movie();
         $films->films_name = $request->films_name;
-
-        $name = $request->file('films_poster')->getClientOriginalName();
-        $request->file('films_poster')->storeAs('public/uploads/movies/', $name);
-        $request->films_poster->move(public_path('uploads/movies'), $name);
-
-        $films->films_poster = $name;
-        $films->films_lenght = $request->films_lenght;
+        $films->films_poster = $imageName;
+        $films->films_length = $request->films_length;
         $films->films_trailer = $request->films_trailer;
         $films->films_description = $request->films_description;
         $films->films_release = $request->films_release;
         $films->films_genre = $request->films_genre;
 
-        Session()->flash('add_success', 'Thêm thành công');
+        session()->flash('add_success', 'Thêm thành công');
         $films->save();
         return redirect()->route('movies');
+
     }
     public function delete($films_id)
     {
         Session()->flash('deletecheck');
-        DB::table('films')->where('films', $films_id)->delete();
-        return redirect()->route('movies');
+        DB::table('films')->where('films_id', $films_id)->delete();
+        return back();
     }
 }

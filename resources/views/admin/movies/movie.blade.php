@@ -56,7 +56,7 @@
                                 <h4 class="mb-0 inline-blk" style="display:inline-block">Movies</h4>
                                 
                                 <div class="" style="float: right;display:inline-block">
-                                    <a href="{{ route('madd') }}"
+                                    <a href="{{ route('mviewadd') }}"
                                         title="Thêm"class="btn btn-sm btn-success px-4"><i
                                             class='bx bx-plus me-1'></i></a>
                                 </div>

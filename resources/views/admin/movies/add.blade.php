@@ -66,58 +66,54 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="p-4 border rounded">
-
-                                        <form class="row g-3 needs-validation" action="{{ URL::to('madd') }}"
-                                            method="POST">
+                                        <form class="row g-3 needs-validation" action="{{ route('madd') }}" method="POST"  enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group">
-                                                
-                                                    <img id="previewIMG" style="display: block;
+                                                <img id="previewIMG" 
+                                                    style="display: block;
                                                        margin-left: auto;
                                                        margin-right: auto;"
-                                                        class="center"
-                                                        src="{{ URL::to('assets/images/No-Image-Placeholder.png') }}"
-                                                         width="20%">
-                                               <br>
-                                               
-                                                    <input type="file" name="films_poster"
-                                                        onchange="previewFile(this);" required class="form-control
-                                                        image-preview" id="inputGroupFile02" accept=".jpg, .png, image/jpeg, image/png">
-                                              
+                                                    class="center"
+                                                    src="{{ URL::to('assets/images/No-Image-Placeholder.png') }}"
+                                                    width="20%">
+                                                <br>
+                                                
+                                                <input type="file" id="films_poster"  name="films_poster" onchange="previewFile(this);"
+                                                    required class="form-control image-preview">        
+                                                                                                                                                                              
                                             </div>
                                             <hr>
                                             <div class="col-md-6">
-                                                <label for="validationCustom01" class="form-label">Movie
+                                                <label class="form-label">Movie
                                                     name</label>
                                                 <input type="text" class="form-control" id="films_name"
                                                     name="films_name" placeholder="movie name">
                                             </div>
                                             <div class="col-md-8">
-                                                <label for="validationCustomUsername" class="form-label">genre</label>
+                                                <label class="form-label">genre</label>
 
                                                 <input type="text" class="form-control" id="films_genre"
                                                     name="films_genre" placeholder="Genre">
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="validationCustomUsername" class="form-label">Length</label>
-
+                                                <label class="form-label">Length</label>
                                                 <input type="number" class="form-control" id="films_length"
                                                     name="films_length" placeholder="Length">
                                             </div>
 
                                             <div class="col-md-4">
-                                                <label for="validationCustom03" class="form-label">Date
+                                                <label class="form-label">Date
                                                     release</label>
                                                 <input type="date" class="form-control" id="films_release"
-                                                    name="films_release" >
+                                                    name="films_release">
                                             </div>
                                             <div class="col-md-8">
-                                                <label for="validationCustom03" class="form-label">Trailer link</label>
+                                                <label class="form-label">Trailer link</label>
                                                 <input type="text" class="form-control" id="films_trailer"
                                                     name="films_trailer" placeholder="link trailer">
                                             </div>
                                             <div class="col-md-12">
-                                                <label for="validationCustom03" class="form-label">Description</label>
+                                                <label class="form-label">Description</label>
                                                 <textarea type="text" class="form-control" id="films_description" name="films_description"
                                                     placeholder="description"></textarea>
                                             </div>
