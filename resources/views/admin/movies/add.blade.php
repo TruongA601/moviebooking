@@ -66,10 +66,11 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="p-4 border rounded">
-                                        <form class="row g-3 needs-validation" action="{{ route('madd') }}" method="POST"  enctype="multipart/form-data">
+                                        <form class="row g-3 needs-validation" action="{{ route('madd') }}"
+                                            method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group">
-                                                <img id="previewIMG" 
+                                                <img id="previewIMG"
                                                     style="display: block;
                                                        margin-left: auto;
                                                        margin-right: auto;"
@@ -77,10 +78,10 @@
                                                     src="{{ URL::to('assets/images/No-Image-Placeholder.png') }}"
                                                     width="20%">
                                                 <br>
-                                                
-                                                <input type="file" id="films_poster"  name="films_poster" onchange="previewFile(this);"
-                                                    required class="form-control image-preview">        
-                                                                                                                                                                              
+                                                <input type="file" id="films_poster" name="films_poster"
+                                                    onchange="previewFile(this);" required
+                                                    class="form-control image-preview"
+                                                    accept=".jpg, .png, image/jpeg, image/png">
                                             </div>
                                             <hr>
                                             <div class="col-md-6">
@@ -91,16 +92,19 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <label class="form-label">genre</label>
-
+@foreach ($genre as $item)
+    
+@endforeach
                                                 <input type="text" class="form-control" id="films_genre"
                                                     name="films_genre" placeholder="Genre">
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="form-label">Length</label>
-                                                <input type="number" class="form-control" id="films_length"
-                                                    name="films_length" placeholder="Length">
+                                                <div class="input-group"> <input type="number" class="form-control"
+                                                        id="films_length" name="films_length" placeholder="Length">
+                                                    <span class="input-group-text">ms</span>
+                                                </div>
                                             </div>
-
                                             <div class="col-md-4">
                                                 <label class="form-label">Date
                                                     release</label>

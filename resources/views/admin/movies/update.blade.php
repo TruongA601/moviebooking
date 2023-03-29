@@ -68,18 +68,22 @@
                                     <div class="p-4 border rounded">
                                         @foreach ($films as $item)
                                             <form class="row g-3 needs-validation"
-                                                action="{{ URL::to('mupdate/' . $item->films_id) }}" method="POST">
+                                                action="{{ URL::to('mupdate/' . $item->films_id) }}" method="POST"
+                                                enctype="multipart/form-data">
                                                 @csrf
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <img src=" {{ URL::to('uploads/movies/' . $item->films_poster) }}"
-                                                            class="center" alt="image" width="130"><br>
-                                                        <label for="films_poster">{{ $item->films_poster }}</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <input  type="file" name="films_poster"
-                                                            accept=".jpg, .png, image/jpeg, image/png" >
-                                                    </div>
+                                                <div class="form-group">
+                                                    <img id="previewIMG"
+                                                        style="display: block;
+                                                       margin-left: auto;
+                                                       margin-right: auto;"
+                                                        class="center"
+                                                        src="{{ URL::to('uploads/movies/' . $item->films_poster) }}"
+                                                        width="20%">
+                                                    <br>
+                                                    <input type="file" id="films_poster" name="films_poster"
+                                                        onchange="previewFile(this);" 
+                                                        class="form-control image-preview"
+                                                        accept=".jpg, .png, image/jpeg, image/png">
                                                 </div>
                                                 <hr>
                                                 <div class="col-md-3">
@@ -104,8 +108,9 @@
                                                     <label for="validationCustomUsername"
                                                         class="form-label">Length</label>
 
-                                                    <input type="text" class="form-control" id="films_length"
+                                                    <input type="number" class="form-control" id="films_length"
                                                         name="films_length" value="{{ $item->films_length }}">
+                                                        <span class="input-group-text">ms</span>
                                                 </div>
 
                                                 <div class="col-md-4">
@@ -115,7 +120,8 @@
                                                         name="films_release" value="{{ $item->films_release }}">
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <label for="validationCustom03" class="form-label">Trailer link</label>
+                                                    <label for="validationCustom03" class="form-label">Trailer
+                                                        link</label>
                                                     <input type="text" class="form-control" id="films_trailer"
                                                         name="films_trailer" value="{{ $item->films_trailer }}">
                                                 </div>
@@ -203,6 +209,18 @@
     <!-- Bootstrap JS -->
 
     @include('admin.footer')
+    <script>
+        function previewFile(input) {
+            var file = $(".image-preview").get(0).files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function() {
+                    $("#previewIMG").attr("src", reader.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 
 </body>
 

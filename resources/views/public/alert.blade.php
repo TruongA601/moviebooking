@@ -41,6 +41,15 @@
         })
     </script>
 @endif
+@if (Session::has('update_success'))
+    <script>
+        Swal.fire({
+            title: '{{Session::get('update_success')}}',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        })
+    </script>
+@endif
 <script>
     function functionDelete(ev){
         ev.preventDefault();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use  \Illuminate\Support\Facades\Session;
@@ -32,17 +33,13 @@ class accountController extends Controller
     {
         $data = $request->all();
         $hashed_password = password_hash($data['password'], PASSWORD_DEFAULT);
-        $users = DB::table('users')->where('UserID', $UserID)
-            ->update([
-                'username' => $data['username'],
-                'password' => $hashed_password,
-                'email' => $data['email'],
-                'sdt' => $data['sdt']
-            ]);
-
-        $users = DB::table('users')->where('UserID', $UserID)->select();
-        $users = $users->get();
-        Session::flash('success', 'users update successfully');
-        return view('admin.users.update', compact('users'));
+        $users = User::find($UserID);
+        $users->update([
+            'username' => $data['username'],
+            'password' => $hashed_password,
+            'email' => $data['email'],
+            'sdt' => $data['sdt']
+        ]);
+        return back()->with('update_success', 'usres successfully updated');
     }
 }
