@@ -19,3 +19,4 @@
 	<script src="{{asset('assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
 <!-- App JS -->
 <script src="{{asset('assets/js/app.js')}}"></script>
+<script src="{{ asset('assets/js/select2.min.js') }} "></script>

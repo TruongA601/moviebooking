@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Movie;
 
 use App\Http\Controllers\Controller;
+use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,21 +17,19 @@ class movieController extends Controller
     public function movies()
     {
         // $this->checkauth();
-        $films = DB::table('films')->select('*');
-        $films = $films->get();
-
+        $films = Movie::all();
         return view('admin.movies.movie', compact('films'));
     }
     public function viewupdate($films_id)
     {
-        $films = DB::table('films')->where('films_id', $films_id)->select();
-        $films = $films->get();
-
-        return view('admin.movies.update', compact('films'));
+        $films = Movie::where('films_id', $films_id)->get();
+        $genre = Genre::all();
+        return view('admin.movies.update', compact('films', 'genre'));
     }
     public function viewadd(Request $request)
     {
-        return view('admin.movies.add');
+        $genre = Genre::all();
+        return view('admin.movies.add', compact('genre'));
     }
 
     public function update(Request $request, $films_id)
@@ -47,14 +46,13 @@ class movieController extends Controller
             $request->films_poster->move(public_path('uploads/movies'), $imageName);
             $films->films_poster = $imageName;
         }
-        
         $films->update([
             'films_name' => $data['films_name'],
             'films_length' => $data['films_length'],
             'films_trailer' => $data['films_trailer'],
             'films_description' => $data['films_description'],
             'films_release' => $data['films_release'],
-            'films_genre' => $data['films_genre']
+            'films_genre' => implode(',', $data['films_genre'])
         ]);
         return back()->with('update_success', 'successfully updated');
     }
@@ -67,7 +65,6 @@ class movieController extends Controller
         $imageName = time() . '.' . $request->films_poster->extension();
         $imageName = $request->file('films_poster')->getClientOriginalName();
         $request->films_poster->move(public_path('uploads/movies'), $imageName);
-
         $films = new Movie();
         $films->films_name = $request->films_name;
         $films->films_poster = $imageName;
@@ -75,11 +72,9 @@ class movieController extends Controller
         $films->films_trailer = $request->films_trailer;
         $films->films_description = $request->films_description;
         $films->films_release = $request->films_release;
-        $films->films_genre = $request->films_genre;
-
-        session()->flash('add_success', 'Thêm thành công');
+        $films->films_genre = implode(',', $request->films_genre);
         $films->save();
-        return redirect()->route('movies');       
+        return redirect()->route('movies')->with('add_success', 'Thêm thành công');
     }
     public function delete($films_id)
     {

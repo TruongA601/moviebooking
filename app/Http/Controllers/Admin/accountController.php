@@ -12,21 +12,18 @@ class accountController extends Controller
 {
     public function account()
     {
-        $users = DB::table('users')->select('*');
-        $users = $users->get();
+        $users = User::all();
         return view('admin.users.account', compact('users'));
     }
     public function delete($UserID)
     {
         Session()->flash('deletecheck', 'Bạn có chắc muốn xóa không');
         DB::table('users')->where('UserID', $UserID)->delete();
-
         return redirect()->route('account');
     }
     public function viewupdate($UserID)
     {
-        $users = DB::table('users')->where('UserID', $UserID)->select();
-        $users = $users->get();
+        $users = User::where('UserID', $UserID)->get();
         return view('admin.users.update', compact('users'));
     }
     public function update($UserID, Request $request)

@@ -92,11 +92,13 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <label class="form-label">genre</label>
-@foreach ($genre as $item)
-    
-@endforeach
-                                                <input type="text" class="form-control" id="films_genre"
-                                                    name="films_genre" placeholder="Genre">
+
+                                                <select class="form-select" id="multiple-select-field"  
+                                                    name="films_genre[]" data-placeholder="Choose anything" multiple>
+                                                    @foreach ($genre as $item)
+                                                        <option>{{ $item->genre_name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="form-label">Length</label>
@@ -212,6 +214,15 @@
             }
         }
     </script>
+    <script>
+        $('#multiple-select-field').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            closeOnSelect: false,
+        });
+    </script>
+
 </body>
 
 </html>

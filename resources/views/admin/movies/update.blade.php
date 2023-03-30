@@ -66,6 +66,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="p-4 border rounded">
+
                                         @foreach ($films as $item)
                                             <form class="row g-3 needs-validation"
                                                 action="{{ URL::to('mupdate/' . $item->films_id) }}" method="POST"
@@ -81,8 +82,7 @@
                                                         width="20%">
                                                     <br>
                                                     <input type="file" id="films_poster" name="films_poster"
-                                                        onchange="previewFile(this);" 
-                                                        class="form-control image-preview"
+                                                        onchange="previewFile(this);" class="form-control image-preview"
                                                         accept=".jpg, .png, image/jpeg, image/png">
                                                 </div>
                                                 <hr>
@@ -100,19 +100,31 @@
                                                 <div class="col-md-8">
                                                     <label for="validationCustomUsername"
                                                         class="form-label">genre</label>
+                                                    <input for="" class="form-control"
+                                                        value="{{ $item->films_genre }}">
+                                                    <select class="form-select" id="multiple-select-field"
+                                                        name="films_genre[]" data-placeholder="Choose anything"
+                                                        multiple>
+                                                        @foreach ($genre as $item1)
+                                                            @php
+                                                                $films_genre = json_decode($films[0]->films_genre);
+                                                            @endphp
+                                                            <option>
+                                                                {{ $item1->genre_name }}
 
-                                                    <input type="text" class="form-control" id="films_genre"
-                                                        name="films_genre" value="{{ $item->films_genre }}">
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="validationCustomUsername"
                                                         class="form-label">Length</label>
-
-                                                    <input type="number" class="form-control" id="films_length"
-                                                        name="films_length" value="{{ $item->films_length }}">
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="films_length"
+                                                            name="films_length" value="{{ $item->films_length }}">
                                                         <span class="input-group-text">ms</span>
+                                                    </div>
                                                 </div>
-
                                                 <div class="col-md-4">
                                                     <label for="validationCustom03" class="form-label">Date
                                                         release</label>
@@ -221,7 +233,14 @@
             }
         }
     </script>
-
+    <script>
+        $('#multiple-select-field').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            closeOnSelect: false,
+        });
+    </script>
 </body>
 
 </html>
